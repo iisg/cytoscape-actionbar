@@ -1,0 +1,37 @@
+{
+  "name": "cytoscape-actionbar",
+  "version": "0.1.0",
+  "main": [
+    "dist/cytoscape-actionbar.js"
+  ],
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iisg/cytoscape-actionbar"
+  },
+  "moduleType": [
+    "globals"
+  ],
+  "description": "An actionbar for Cytoscape.js",
+  "license": "MIT",
+  "dependencies": {
+    "cytoscape": ">= 2.2",
+    "jquery": ">=1.4"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "coffeelint.json",
+    "Gulpfile.coffee",
+    "Gulpfile.js",
+    "package.json"
+  ],
+  "keywords": [
+    "agh",
+    "actionbar",
+    "cytoscape",
+    "cytoscape.js",
+    "extension"
+  ]
+}
