@@ -18,11 +18,10 @@
         $element = $("<span id='action-#{itemIndex}' class='#{clazz}' title='#{element.tooltip}'></span>")
 
         if element.condition
-          $condition = $(element.condition)
-          $actionbar.append($condition)
-          $($actionbar[0].lastChild).append($element)
-        else
-          $actionbar.append($element)
+          $condition = $(element.condition);
+          $element = $condition.append($element);
+
+        $actionbar.append($element)
 
         $element
         .on('click', ->
