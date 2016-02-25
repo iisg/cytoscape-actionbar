@@ -15,9 +15,13 @@
       $actionbar = $("<div class='" + options.actionbarClass + "'></div>");
       $actionbar.appendTo($(cy.container()));
       $.each(options.items, function(itemIndex, element) {
-        var $element, clazz;
+        var $condition, $element, clazz;
         clazz = options.actionItemClass + ' icon ' + element.icon;
         $element = $("<span id='action-" + itemIndex + "' class='" + clazz + "' title='" + element.tooltip + "'></span>");
+        if (element.condition) {
+          $condition = $(element.condition);
+          $element = $condition.append($element);
+        }
         $actionbar.append($element);
         return $element.on('click', function() {
           return element.action(cy, element);
