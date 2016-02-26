@@ -16,6 +16,11 @@
       $.each(options.items, (itemIndex, element) ->
         clazz = options.actionItemClass + ' icon ' + element.icon
         $element = $("<span id='action-#{itemIndex}' class='#{clazz}' title='#{element.tooltip}'></span>")
+
+        if element.condition
+          $condition = $(element.condition)
+          $element = $condition.append($element)
+
         $actionbar.append($element)
 
         $element
