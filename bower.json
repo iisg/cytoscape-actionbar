@@ -15,6 +15,7 @@
   "description": "An actionbar for Cytoscape.js",
   "license": "MIT",
   "dependencies": {
+    "angular": ">=1.4.5",
     "cytoscape": ">= 2.2",
     "jquery": ">=1.4"
   },

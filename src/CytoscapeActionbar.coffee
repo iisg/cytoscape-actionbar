@@ -1,45 +1,22 @@
-(($) ->
-  class CytoscapeActionbar
-    defaults:
-      items: []
-      appendTools: false # set whether or not to append your custom tools list to the default tools list
-      actionbarClass: 'ui-cytoscape-actionbar' # set a class name for the toolbar to help with styling
-      multipleToolsClass: 'action-item-list' # set a class name for the tools that should be shown in the same position
-      actionItemClass: 'action-item' # set a class name for a toolbar item to help with styling
-
-    constructor: (cy, options) ->
-      options = $.extend(true, {}, @defaults, options)
-
-      $actionbar = $("<div class='#{options.actionbarClass}'></div>")
-      $actionbar.appendTo($(cy.container()))
-
-      $.each(options.items, (itemIndex, element) ->
-        clazz = options.actionItemClass + ' icon ' + element.icon
-        $element = $("<span id='action-#{itemIndex}' class='#{clazz}' title='#{element.tooltip}'></span>")
-
-        if element.condition
-          $condition = $(element.condition)
-          $element = $condition.append($element)
-
-        $actionbar.append($element)
-
-        $element
-        .on('click', ->
-          element.action(cy, element)
-        )
-        .hover(
-          (e) ->
-            $(e.target).css('color', '#000')
-          (e) ->
-            $(e.target).css('color', '#aaa')
-        )
-      )
-
-  cytoscape(
-    'core',
-    'actionbar',
-    (options) ->
-      new CytoscapeActionbar(@, options)
-      return @
-  )
-)(jQuery)
+angular.module('cytoscape.actionbar', []).directive 'cytoscapeActionbar', ->
+  template: """
+    <div ng-class='options.actionbarClass' style="position: absolute; z-index: 1000">
+        <span ng-repeat="item in options.items" ng-click='item.action(cy, item)' ng-if='item.condition()'
+        ng-class='[options.actionItemClass, icon, item.icon]' bs-tooltip='item.tooltip'></span>
+    </div>
+  """
+  link: (scope) ->
+    cytoscape(
+      'core',
+      'actionbar',
+      (options) ->
+        defaults =
+          items: []
+          appendTools: no # set whether or not to append your custom tools list to the default tools list
+          actionbarClass: 'ui-cytoscape-actionbar' # set a class name for the toolbar to help with styling
+          actionItemClass: 'action-item' # set a class name for a toolbar item to help with styling
+        angular.extend(defaults, options)
+        angular.forEach(options.items, (item) ->
+          if not item.condition then item.condition = -> true)
+        scope.options = options
+    )

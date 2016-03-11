@@ -1,43 +1,25 @@
-(function($) {
-  var CytoscapeActionbar;
-  CytoscapeActionbar = (function() {
-    CytoscapeActionbar.prototype.defaults = {
-      items: [],
-      appendTools: false,
-      actionbarClass: 'ui-cytoscape-actionbar',
-      multipleToolsClass: 'action-item-list',
-      actionItemClass: 'action-item'
-    };
-
-    function CytoscapeActionbar(cy, options) {
-      var $actionbar;
-      options = $.extend(true, {}, this.defaults, options);
-      $actionbar = $("<div class='" + options.actionbarClass + "'></div>");
-      $actionbar.appendTo($(cy.container()));
-      $.each(options.items, function(itemIndex, element) {
-        var $condition, $element, clazz;
-        clazz = options.actionItemClass + ' icon ' + element.icon;
-        $element = $("<span id='action-" + itemIndex + "' class='" + clazz + "' title='" + element.tooltip + "'></span>");
-        if (element.condition) {
-          $condition = $(element.condition);
-          $element = $condition.append($element);
-        }
-        $actionbar.append($element);
-        return $element.on('click', function() {
-          return element.action(cy, element);
-        }).hover(function(e) {
-          return $(e.target).css('color', '#000');
-        }, function(e) {
-          return $(e.target).css('color', '#aaa');
+angular.module('cytoscape.actionbar', []).directive('cytoscapeActionbar', function() {
+  return {
+    template: "<div ng-class='options.actionbarClass' style=\"position: absolute; z-index: 1000\">\n    <span ng-repeat=\"item in options.items\" ng-click='item.action(cy, item)' ng-if='item.condition()'\n    ng-class='[options.actionItemClass, icon, item.icon]' bs-tooltip='item.tooltip'></span>\n</div>",
+    link: function(scope) {
+      return cytoscape('core', 'actionbar', function(options) {
+        var defaults;
+        defaults = {
+          items: [],
+          appendTools: false,
+          actionbarClass: 'ui-cytoscape-actionbar',
+          actionItemClass: 'action-item'
+        };
+        angular.extend(defaults, options);
+        angular.forEach(options.items, function(item) {
+          if (!item.condition) {
+            return item.condition = function() {
+              return true;
+            };
+          }
         });
+        return scope.options = options;
       });
     }
-
-    return CytoscapeActionbar;
-
-  })();
-  return cytoscape('core', 'actionbar', function(options) {
-    new CytoscapeActionbar(this, options);
-    return this;
-  });
-})(jQuery);
+  };
+});
