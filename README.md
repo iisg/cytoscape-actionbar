@@ -52,7 +52,11 @@ put tags inside cytoscape div and initialize plugin with:
 ## Example
 
 Example with defined (bootstrap) classes:
-- actionbarClass: 'btn-group'
-- actionItemClass: 'btn btn-default btn-sm'
+
+```
+actionbarClass: 'btn-group'
+actionItemClass: 'btn btn-default btn-sm'
+```
+
 
 ![cytoscape actionbar](https://raw.githubusercontent.com/iisg/cytoscape-actionbar/angularized/images/cytoscape-actionbar.png)
