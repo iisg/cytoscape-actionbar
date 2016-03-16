@@ -5,6 +5,8 @@ Actionbar for Cytoscape.js
 
 Allows to define and style graph buttons with action and angular conditions for each of them.
 
+![cytoscape actionbar](https://raw.githubusercontent.com/iisg/cytoscape-actionbar/angularized/images/cytoscape-actionbar.png)
+
 ## Dependencies
  * Cytoscape.js >= 2.2
  * jQuery >= 1.4
@@ -50,7 +52,7 @@ put tags inside cytoscape div and initialize plugin with:
 ## Example
 
 Example with defined (bootstrap) classes:
-actionbarClass: 'btn-group'
-actionItemClass: 'btn btn-default btn-sm'
+- actionbarClass: 'btn-group'
+- actionItemClass: 'btn btn-default btn-sm'
 
 ![cytoscape actionbar](https://raw.githubusercontent.com/iisg/cytoscape-actionbar/angularized/images/cytoscape-actionbar.png)
