@@ -12,9 +12,8 @@ angular.module('cytoscape.actionbar', []).directive 'cytoscapeActionbar', ->
       (options) ->
         defaults =
           items: []
-          appendTools: no # set whether or not to append your custom tools list to the default tools list
-          actionbarClass: 'ui-cytoscape-actionbar' # set a class name for the toolbar to help with styling
-          actionItemClass: 'action-item' # set a class name for a toolbar item to help with styling
+          actionbarClass: 'ui-cytoscape-actionbar' 	# set a class name for the toolbar to help with styling
+          actionItemClass: 'action-item' 			# set a class name for a toolbar item to help with styling
         angular.extend(defaults, options)
         angular.forEach(options.items, (item) ->
           if not item.condition then item.condition = -> true)
