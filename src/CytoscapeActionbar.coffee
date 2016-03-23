@@ -2,7 +2,7 @@ angular.module('cytoscape.actionbar', []).directive 'cytoscapeActionbar', ->
   template: """
     <div ng-class='options.actionbarClass' style="position: absolute; z-index: 1000">
         <span ng-repeat="item in options.items" ng-click='item.action(cy, item)' ng-if='item.condition()'
-        ng-class='[options.actionItemClass, icon, item.icon]' bs-tooltip='item.tooltip'></span>
+        ng-class='[options.actionItemClass, icon, item.icon]' data-container='body' bs-tooltip='item.tooltip'></span>
     </div>
   """
   link: (scope) ->
