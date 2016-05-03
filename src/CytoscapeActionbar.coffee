@@ -1,4 +1,4 @@
-angular.module('cytoscape.actionbar', []).directive 'cytoscapeActionbar', ($rootScope) ->
+angular.module('cytoscape.actionbar', []).directive 'cytoscapeActionbar', ($timeout) ->
   template: """
     <div ng-class='options.actionbarClass' style="position: absolute; z-index: 1000">
         <span ng-repeat="item in options.items" ng-click='item.action(cy, item)' ng-if='item.condition()'
@@ -17,7 +17,12 @@ angular.module('cytoscape.actionbar', []).directive 'cytoscapeActionbar', ($root
         angular.extend(defaults, options)
         angular.forEach(options.items, (item) ->
           if not item.condition then item.condition = -> true)
+
         # run digest cycle on graph's zoom and pan events
-        @on(digestEvent, -> $rootScope.$apply()) for digestEvent in ['zoom', 'pan']
+        digestTimeout = null
+        runDigestAfterEvent = ->
+          $timeout.cancel(digestTimeout) if digestTimeout
+          digestTimeout = $timeout((-> digestTimeout = null), 100)
+        @on(digestEvent, runDigestAfterEvent) for digestEvent in ['zoom', 'pan']
         scope.options = options
     )
