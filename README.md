@@ -39,7 +39,8 @@ put tags inside cytoscape div and initialize plugin with:
         icon: 'fa fa-search-minus'      	# class for actionbar button
         tooltip: 'Zoom out'             	# button tooltip message
         action: (cy) ->                 	# function to call
-	condition: -> isVisible			# optional expression to put in 'ng-if' condition
+        visible: -> isVisible			# optional expression to put in 'ng-if' condition
+        enabled: -> isEnabled			# optional expression to put in 'ng-disabled' condition (negation)
           ...
       },
       ..
