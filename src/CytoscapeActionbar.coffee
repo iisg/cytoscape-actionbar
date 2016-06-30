@@ -1,9 +1,12 @@
 angular.module('cytoscape.actionbar', []).directive 'cytoscapeActionbar', ($timeout) ->
   template: """
-    <div ng-class='options.actionbarClass' style="position: absolute; z-index: 1000">
-        <button ng-repeat="item in options.items" ng-click='item.action(cy, item)'
-        ng-disabled='!item.enabled()' ng-if='item.visible()'
-        ng-class='[options.actionItemClass, icon, item.icon]' data-container='body' bs-tooltip='item.tooltip'></button>
+    <div class="cytoscape-graph-actionbar" style="right: 20px; position: absolute; z-index: 1000">
+      <div ng-class="options.actionbarClass" ng-repeat="group in options.items">
+          <button ng-repeat="item in group" ng-click='item.action(cy, item)'
+            ng-disabled='!item.enabled()' ng-if='item.visible()'
+            ng-class='[options.actionItemClass, icon, item.icon]' data-container='body' bs-tooltip='item.tooltip'>
+          </button>
+      </div>
     </div>
   """
   link: (scope) ->
@@ -16,9 +19,14 @@ angular.module('cytoscape.actionbar', []).directive 'cytoscapeActionbar', ($time
           actionbarClass: 'ui-cytoscape-actionbar' # set a class name for the toolbar to help with styling
           actionItemClass: 'action-item' # set a class name for a toolbar item to help with styling
         angular.extend(defaults, options)
-        for item in options.items
-          item.visible ?= -> true
-          item.enabled ?= -> true
+
+        if options.items[0].action
+          options.items = [options.items]
+
+        for group in options.items
+          for item in group
+            item.visible ?= -> true
+            item.enabled ?= -> true
 
         # run digest cycle on graph's zoom and pan events
         digestTimeout = null
