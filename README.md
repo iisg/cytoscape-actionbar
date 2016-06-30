@@ -10,7 +10,7 @@ Allows to define and style graph buttons with action and angular conditions for 
 ## Dependencies
  * Cytoscape.js >= 2.2
  * jQuery >= 1.4
- 
+
 ## Installation
 Require package using bower:
 
@@ -61,3 +61,18 @@ actionItemClass: 'btn btn-default btn-sm'
 
 
 ![cytoscape actionbar](https://raw.githubusercontent.com/iisg/cytoscape-actionbar/angularized/images/cytoscape-actionbar.png)
+
+## Divide buttons into groups
+
+If you want to divide buttons into groups, just specify `items` as a nested array, i.e.:
+
+```
+items: [
+  [{ ### item 1, group 1 ### }, { ### item 2, group 1 ###} ]
+  [{ ### item 1, group 2 ### }]
+]
+```
+
+The result:
+
+![cytoscape actionbar](https://raw.githubusercontent.com/iisg/cytoscape-actionbar/angularized/images/cytoscape-actionbar-groups.png)
