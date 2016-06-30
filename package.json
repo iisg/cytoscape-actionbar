@@ -1,6 +1,6 @@
 {
   "name": "cytoscape-actionbar",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "An actionbar for Cytoscape.js",
   "repository": {},
   "dependencies": {},
