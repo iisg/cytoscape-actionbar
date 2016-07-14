@@ -1,14 +1,17 @@
 angular.module('cytoscape.actionbar', []).directive('cytoscapeActionbar', ["$timeout", function($timeout) {
   return {
-    template: "<div class=\"cytoscape-graph-actionbar\" style=\"right: 0; left: 0; position: absolute; z-index: 1000\">\n  <div ng-repeat=\"group in options.itemGroups\" ng-class=\"group.itemGroupClass\">\n      <button ng-repeat=\"item in group.items\" ng-click='item.action(cy, item)'\n        ng-disabled='!item.enabled()' ng-if='item.visible()'\n        ng-class='[options.actionItemClass, icon, item.icon]' data-container='body' bs-tooltip='item.tooltip'>\n      </button>\n  </div>\n</div>",
+    template: "<div class=\"cytoscape-graph-actionbar\" style=\"right: 1.5%; left: 1.5%; position: absolute; z-index: 1000\">\n  <div ng-repeat=\"group in options.itemGroups\" ng-class=\"group.itemsClass\">\n      <button ng-repeat=\"item in group.items\" ng-click='item.action(cy, item)'\n        ng-disabled='!item.enabled()' ng-if='item.visible()'\n        ng-class='[options.actionItemClass, icon, item.icon]' data-container='body' bs-tooltip='item.tooltip'>\n      </button>\n  </div>\n</div>",
     link: function(scope) {
       return cytoscape('core', 'actionbar', function(options) {
         var defaults, digestEvent, digestTimeout, group, i, item, j, k, len, len1, len2, ref, ref1, ref2, runDigestAfterEvent;
         defaults = {
-          itemGroups: [],
+          itemGroups: {},
           actionItemClass: 'action-item'
         };
         angular.extend(defaults, options);
+        if (options.itemGroups.itemsClass) {
+          options.itemGroups = [options.itemGroups];
+        }
         ref = options.itemGroups;
         for (i = 0, len = ref.length; i < len; i++) {
           group = ref[i];
