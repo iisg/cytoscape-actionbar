@@ -34,8 +34,9 @@ put tags inside cytoscape div and initialize plugin with:
     container: ..
   )
   cy.actionbar(
-    items: [
-      {
+    itemGroups: 
+      itemsClass: 'item-group' #set a class name for item group to help with styling
+      items: [{
         icon: 'fa fa-search-minus'      	# class for actionbar button
         tooltip: 'Zoom out'             	# button tooltip message
         action: (cy) ->                 	# function to call
@@ -44,8 +45,7 @@ put tags inside cytoscape div and initialize plugin with:
           ...
       },
       ..
-    ]
-    actionbarClass: 'ui-cytoscape-actionbar' 	# set a class name for the toolbar to help with styling
+      ]
     actionItemClass: 'action-item' 		# set a class name for a toolbar item to help with styling
   )
 ```
@@ -55,7 +55,7 @@ put tags inside cytoscape div and initialize plugin with:
 Example with defined (bootstrap) classes:
 
 ```
-actionbarClass: 'btn-group'
+itemsClass: 'btn-group'
 actionItemClass: 'btn btn-default btn-sm'
 ```
 
@@ -64,12 +64,18 @@ actionItemClass: 'btn btn-default btn-sm'
 
 ## Divide buttons into groups
 
-If you want to divide buttons into groups, just specify `items` as a nested array, i.e.:
+If you want to divide buttons into groups, just specify `itemGroups` as a nested array, i.e.:
 
 ```
-items: [
-  [{ ### item 1, group 1 ### }, { ### item 2, group 1 ###} ]
-  [{ ### item 1, group 2 ### }]
+itemGroups: [
+  {
+  itemsClass: 'btn-group'
+  items: [{ ### item 1, group 1 ### }, { ### item 2, group 1 ###} ]
+  }
+  {
+  itemsClass: 'btn-group items-pulled-right'
+  items: [{ ### item 1, group 2 ### }]
+  }
 ]
 ```
 
